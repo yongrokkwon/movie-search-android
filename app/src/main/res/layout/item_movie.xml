@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
         <variable
             name="clickListener"
-            type="kotlin.Unit" />
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="item"
-            type="kotlin.Unit" />
+            type="com.ksoft.ms.ui.movie.MovieItem.Item" />
 
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/movieCard"
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:onClick="@{clickListener}"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="@dimen/movie_corner_radius"
         app:cardElevation="@dimen/movie_elevation">
@@ -26,7 +25,9 @@
         <ImageView
             android:id="@+id/movie_logo"
             style="@style/MoviePoster"
-            android:layout_height="180dp" />
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:setUrlImage="@{item.image}" />
 
         <View
             android:layout_width="match_parent"

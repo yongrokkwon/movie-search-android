@@ -1,4 +1,4 @@
-package com.ksoft.ms.di
+package com.ksoft.ms.di.module
 
 import com.ksoft.ms.ui.main.MainActivity
 import dagger.Module

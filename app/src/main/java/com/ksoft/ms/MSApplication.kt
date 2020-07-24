@@ -1,6 +1,7 @@
 package com.ksoft.ms
 
 import android.app.Application
+import androidx.annotation.IdRes
 import com.ksoft.ms.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

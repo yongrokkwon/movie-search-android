@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    
+
     <data>
-        
+
         <variable
             name="clickListener"
             type="kotlin.Unit" />
@@ -10,13 +10,29 @@
         <variable
             name="item"
             type="kotlin.Unit" />
-        
-    </data>
-    
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/movieCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/movie_corner_radius"
+        app:cardElevation="@dimen/movie_elevation">
+
+        <ImageView
+            android:id="@+id/movie_logo"
+            style="@style/MoviePoster"
+            android:layout_height="180dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_effect" />
+
+    </androidx.cardview.widget.CardView>
 
 </layout>

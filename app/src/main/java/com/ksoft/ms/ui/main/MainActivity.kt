@@ -12,8 +12,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        showMovieFragment()
+    }
+
+    private fun showMovieFragment() {
         supportFragmentManager.beginTransaction()
-            .add(binding.fragmentContainer.id, MovieFragment())
+            .replace(binding.fragmentContainer.id, MovieFragment())
             .commitNow()
     }
 

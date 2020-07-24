@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="movie_corner_radius">0dp</dimen>
+    <dimen name="movie_elevation">1dp</dimen>
+
+</resources>

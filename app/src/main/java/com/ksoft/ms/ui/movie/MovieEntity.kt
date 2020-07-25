@@ -3,7 +3,7 @@ package com.ksoft.ms.ui.movie
 import com.google.gson.annotations.SerializedName
 import com.ksoft.ms.ui.base.BaseItem
 
-data class MovieItem(
+data class MovieEntity(
     @SerializedName("display")
     val display: Int,
     @SerializedName("items")

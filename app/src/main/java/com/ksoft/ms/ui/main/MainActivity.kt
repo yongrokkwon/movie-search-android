@@ -5,6 +5,7 @@ import com.ksoft.ms.R
 import com.ksoft.ms.databinding.ActivityMainBinding
 import com.ksoft.ms.ui.base.BaseActivity
 import com.ksoft.ms.ui.movie.MovieFragment
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override val layoutRes = R.layout.activity_main
@@ -13,6 +14,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         showMovieFragment()
+        toolbar.title = getString(R.string.app_name)
     }
 
     private fun showMovieFragment() {

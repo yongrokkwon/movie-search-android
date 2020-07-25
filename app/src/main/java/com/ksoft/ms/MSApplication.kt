@@ -3,6 +3,7 @@ package com.ksoft.ms
 import android.app.Application
 import androidx.annotation.IdRes
 import com.ksoft.ms.di.DaggerAppComponent
+import com.ksoft.ms.di.module.NetworkModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -22,7 +23,9 @@ class MSApplication : Application(), HasAndroidInjector {
             Timber.plant(Timber.DebugTree())
         }
 
-        DaggerAppComponent.create()
+        DaggerAppComponent.builder()
+            .netWorkModule(NetworkModule(this))
+            .build()
             .inject(this)
     }
 }

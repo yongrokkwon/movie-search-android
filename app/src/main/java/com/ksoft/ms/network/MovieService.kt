@@ -12,5 +12,5 @@ class MovieService @Inject constructor(
 ) : MovieApi {
     private val movieApi by lazy { retrofit.create(MovieApi::class.java) }
 
-    override fun movies(query: String, display: Int): Call<MovieEntity> = movieApi.movies("영화", 30)
+    override fun movies(query: String, display: Int): Call<MovieEntity> = movieApi.movies(query, 30)
 }

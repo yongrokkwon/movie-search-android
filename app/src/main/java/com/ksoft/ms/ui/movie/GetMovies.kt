@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetMovies @Inject constructor(
     private val moviesRepository: MoviesRepository
-) : UseCase<MovieEntity, UseCase.None>() {
-    override suspend fun run(params: None) = moviesRepository.movies()
+) : UseCase<MovieEntity, String>() {
+    override suspend fun run(params: String) = moviesRepository.movies(params)
 }

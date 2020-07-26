@@ -11,9 +11,14 @@ class MoviesRepositoryImpl @Inject constructor(
     private val networkHandler: NetworkHandler,
     private val movieService: MovieService
 ) : MoviesRepository {
-    override fun movies(): Result<Failure, MovieEntity> {
+    override fun movies(query: String): Result<Failure, MovieEntity> {
         return when (networkHandler.isConnected) {
-            true -> request(movieService.movies()) { it }
+            true -> request(
+                movieService.movies(
+                    query,
+                    100 /*TODO Preference Value Setting */
+                )
+            ) { it }
             false -> Result.Fail(Failure.NetworkConnection)
         }
     }

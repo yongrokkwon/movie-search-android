@@ -9,7 +9,7 @@ interface MovieApi {
 
     @GET("/v1/search/movie.json")
     fun movies(
-        @Query("query") query: String = "",
-        @Query("display") display: Int = 0
+        @Query("query") query: String,
+        @Query("display") display: Int
     ): Call<MovieEntity>
 }

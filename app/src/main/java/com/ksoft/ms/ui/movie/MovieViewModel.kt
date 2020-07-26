@@ -10,8 +10,8 @@ class MovieViewModel @Inject constructor(
 
     val movieAdapter = MovieAdapter()
 
-    init {
-        getMovies.invoke(UseCase.None()) {
+    fun searchMovies(query: String) {
+        getMovies.invoke(query) {
             it.fold(::error) { movieEntity -> movieAdapter.submitList(movieEntity.items) }
         }
     }

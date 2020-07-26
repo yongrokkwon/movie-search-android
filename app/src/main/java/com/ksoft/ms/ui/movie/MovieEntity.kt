@@ -13,7 +13,9 @@ data class MovieEntity(
     @SerializedName("start")
     val start: Int,
     @SerializedName("total")
-    val total: Int
+    val total: Int,
+    @SerializedName("errorMessage")
+    val errorMessage: String
 ) {
     data class Item(
         @SerializedName("actor")

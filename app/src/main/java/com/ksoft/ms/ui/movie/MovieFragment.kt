@@ -8,9 +8,11 @@ import com.ksoft.ms.R
 import com.ksoft.ms.databinding.FragmentMovieBinding
 import com.ksoft.ms.ui.base.BaseFragment
 import com.ksoft.ms.ui.main.MainActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
+@ExperimentalCoroutinesApi
 class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
 
     override val layoutRes = R.layout.fragment_movie
@@ -28,7 +30,7 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
         searchView.queryTextChanges()
             .throttleWithTimeout(500L, TimeUnit.MILLISECONDS)
             .subscribe {
-                Timber.d("SearchQuery: $it")
+                Timber.d("__SearchQuery: $it")
                 if (it.isNotBlank()) viewModel.searchMovies(it.toString())
             }
     }

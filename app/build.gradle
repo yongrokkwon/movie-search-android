@@ -96,6 +96,9 @@ dependencies {
     def RX_BINDING_VERSION = '4.0.0'
     implementation "com.jakewharton.rxbinding4:rxbinding-appcompat:$RX_BINDING_VERSION"
 
+    def LIFECYCLE_VIEW_MODEL_KTX_VERSION = '2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VIEW_MODEL_KTX_VERSION"
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -7,13 +7,19 @@ import com.jakewharton.rxbinding4.appcompat.queryTextChanges
 import com.ksoft.ms.R
 import com.ksoft.ms.databinding.FragmentMovieBinding
 import com.ksoft.ms.ui.base.BaseFragment
+import com.ksoft.ms.ui.base.BasePresenter
+import com.ksoft.ms.ui.extensions.hide
+import com.ksoft.ms.ui.extensions.show
 import com.ksoft.ms.ui.main.MainActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi
-class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
+class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>(), MoviePresenter {
 
     override val layoutRes = R.layout.fragment_movie
     override val viewModelClass = MovieViewModel::class
@@ -26,6 +32,16 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
         addSearchViewTextChanges()
     }
 
+    override fun emptyShow() {
+        binding.tvEmpty.show()
+        binding.rvMovie.hide()
+    }
+
+    override fun emptyHide() {
+        binding.tvEmpty.hide()
+        binding.rvMovie.show()
+    }
+
     private fun addSearchViewTextChanges() {
         val activity = requireActivity() as MainActivity
         val toolbar = activity.binding.toolbar
@@ -34,7 +50,11 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
             .throttleWithTimeout(500L, TimeUnit.MILLISECONDS)
             .subscribe {
                 Timber.d("__SearchQuery: $it")
-                if (it.isNotBlank()) viewModel.searchMovies(it.toString())
+                if (it.isNotBlank()) {
+                    viewModel.searchMovies(it.toString())
+                } else {
+                    GlobalScope.launch(Dispatchers.Main) { emptyShow() }
+                }
             }
     }
 

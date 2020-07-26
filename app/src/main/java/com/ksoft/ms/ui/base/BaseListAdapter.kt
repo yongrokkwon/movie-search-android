@@ -1,12 +1,10 @@
 package com.ksoft.ms.ui.base
 
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +14,7 @@ abstract class BaseListAdapter<T : BaseItem>(
     diffCallback: DiffUtil.ItemCallback<T> = BaseDiffItemCallback()
 ) : ListAdapter<T, BaseViewHolder<T>>(diffCallback) {
 
-    private var callbacks: ViewModel? = null
-
     private var itemClickListener: ((View, T) -> Unit)? = null
-
-    private var state: Parcelable? = null
 
     abstract fun getItemViewTypeByItem(item: T): Int
 
@@ -68,9 +62,5 @@ abstract class BaseListAdapter<T : BaseItem>(
 
     fun setItemClickListener(itemClickListener: (View, T) -> Unit) {
         this.itemClickListener = itemClickListener
-    }
-
-    fun setCallback(callbacks: ViewModel) {
-        this.callbacks = callbacks
     }
 }

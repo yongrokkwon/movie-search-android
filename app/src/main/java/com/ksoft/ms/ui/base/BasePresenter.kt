@@ -4,5 +4,6 @@ interface BasePresenter {
 
     fun showLoading()
     fun hideLoading()
+    fun showToast(message: String?)
 
 }

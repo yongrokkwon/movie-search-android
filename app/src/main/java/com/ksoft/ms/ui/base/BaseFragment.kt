@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,13 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ksoft.ms.BR
+import com.ksoft.ms.R
 import com.ksoft.ms.ui.widget.ProgressLoadingDialog
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
-abstract class BaseFragment<VM : BaseViewModel<BasePresenter>, VB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<VM : BaseViewModel<out BasePresenter>, VB : ViewDataBinding> :
+    Fragment(),
     BasePresenter {
 
     @Inject
@@ -63,6 +66,14 @@ abstract class BaseFragment<VM : BaseViewModel<BasePresenter>, VB : ViewDataBind
 
     override fun showLoading() {
         progress.safeShow()
+    }
+
+    override fun showToast(message: String?) {
+        Toast.makeText(
+            requireContext(),
+            message ?: getString(R.string.app_name),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroy() {

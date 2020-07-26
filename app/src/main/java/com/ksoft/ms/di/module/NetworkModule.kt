@@ -44,10 +44,4 @@ class NetworkModule(private val application: Application) {
         return okHttpClientBuilder.build()
     }
 
-    @Provides
-    @Singleton
-    fun provideConnectivityManager(): ConnectivityManager {
-        return application.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    }
-
 }

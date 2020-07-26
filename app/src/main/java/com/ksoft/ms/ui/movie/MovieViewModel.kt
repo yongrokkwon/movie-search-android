@@ -12,7 +12,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class MovieViewModel @Inject constructor(
     private val getMovies: GetMovies
-) : BaseViewModel<BasePresenter>() {
+) : BaseViewModel<MoviePresenter>() {
 
     val movieAdapter = MovieAdapter()
 
@@ -28,14 +28,25 @@ class MovieViewModel @Inject constructor(
             when (status) {
                 is MovieStatus.Success -> {
                     getPresenter()?.hideLoading()
-                    movieAdapter.submitList(status.result.items)
+                    if (status.result.items.isEmpty()) {
+                        getPresenter()?.emptyShow()
+                    } else {
+                        movieAdapter.submitList(status.result.items)
+                        getPresenter()?.emptyHide()
+                    }
                 }
                 is MovieStatus.Loading -> {
                     getPresenter()?.showLoading()
                 }
                 is MovieStatus.Error -> {
                     getPresenter()?.hideLoading()
+                    getPresenter()?.showToast(status.throwable.message)
+                    getPresenter()?.emptyShow()
                     Timber.e(status.throwable)
+                }
+                is MovieStatus.Empty -> {
+                    getPresenter()?.hideLoading()
+                    getPresenter()?.emptyShow()
                 }
             }
         }.launchIn(viewModelScope)

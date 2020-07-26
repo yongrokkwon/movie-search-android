@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">movie-search-android</string>
+    <string name="menu_search">menu_search</string>
 </resources>

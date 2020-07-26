@@ -47,7 +47,7 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>(), Movi
         val toolbar = activity.binding.toolbar
         val searchView = toolbar.menu.findItem(R.id.menu_search).actionView as SearchView
         searchView.queryTextChanges()
-            .throttleWithTimeout(500L, TimeUnit.MILLISECONDS)
+            .throttleWithTimeout(3000L, TimeUnit.MILLISECONDS)
             .subscribe {
                 Timber.d("__SearchQuery: $it")
                 if (it.isNotBlank()) {

@@ -61,7 +61,7 @@ abstract class BaseFragment<VM : BaseViewModel<out BasePresenter>, VB : ViewData
     }
 
     override fun hideLoading() {
-        progress.hide()
+        progress.close()
     }
 
     override fun showLoading() {

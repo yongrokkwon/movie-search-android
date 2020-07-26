@@ -16,7 +16,7 @@ abstract class BaseViewModel<P> : ViewModel() {
     }
 
     fun clear() {
-        presenter.clear()
+        if (::presenter.isInitialized) presenter.clear()
     }
 
 }

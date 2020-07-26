@@ -1,7 +1,8 @@
 package com.ksoft.ms.ui.main
 
-import androidx.lifecycle.ViewModel
+import com.ksoft.ms.ui.base.BasePresenter
+import com.ksoft.ms.ui.base.BaseViewModel
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor() : BaseViewModel<BasePresenter>() {
 }

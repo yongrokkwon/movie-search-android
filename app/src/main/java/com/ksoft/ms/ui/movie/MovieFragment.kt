@@ -17,6 +17,9 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
 
     override val layoutRes = R.layout.fragment_movie
     override val viewModelClass = MovieViewModel::class
+    override fun initPresenter() {
+        viewModel.setPresenter(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

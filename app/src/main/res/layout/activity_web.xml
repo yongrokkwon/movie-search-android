@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="url"
-            type="String" />
+            name="viewModel"
+            type="com.ksoft.ms.ui.web.WebViewModel" />
 
     </data>
 
@@ -15,6 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:enableJavaScript="@{true}"
-        app:loadUrl="@{url}" />
+        app:loadUrl="@{viewModel.url}" />
 
 </layout>

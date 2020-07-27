@@ -1,16 +1,15 @@
 package com.ksoft.ms.ui.web
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import com.ksoft.ms.R
-import kotlinx.android.synthetic.main.activity_web.*
+import com.ksoft.ms.databinding.ActivityWebBinding
+import com.ksoft.ms.ui.base.BaseActivity
 
-class WebActivity : Activity() {
+class WebActivity : BaseActivity<WebViewModel, ActivityWebBinding>() {
 
     companion object {
         private const val EXTRA_URL = "EXTRA_URL"
@@ -19,16 +18,17 @@ class WebActivity : Activity() {
             .putExtra(EXTRA_URL, url)
     }
 
+    override val layoutRes = R.layout.activity_web
+    override val viewModelClass = WebViewModel::class
+
     private val url: String by lazy(LazyThreadSafetyMode.NONE) {
         intent.getStringExtra(EXTRA_URL) ?: ""
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web)
-        webView.webViewClient = WebViewClient()
-        webView.webChromeClient = WebChromeClient()
+        viewModel.url = url
+        binding.webView.webViewClient = WebViewClient()
+        binding.webView.webChromeClient = WebChromeClient()
     }
-
 }

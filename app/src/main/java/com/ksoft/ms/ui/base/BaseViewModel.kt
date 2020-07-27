@@ -1,6 +1,5 @@
 package com.ksoft.ms.ui.base
 
-import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ksoft.ms.Event

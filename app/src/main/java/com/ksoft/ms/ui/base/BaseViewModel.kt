@@ -1,9 +1,14 @@
 package com.ksoft.ms.ui.base
 
+import android.content.Intent
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ksoft.ms.Event
 import java.lang.ref.WeakReference
 
 abstract class BaseViewModel<P> : ViewModel() {
+
+    val navDirections = MutableLiveData<Event<Any>>()
 
     private lateinit var presenter: WeakReference<P>
 

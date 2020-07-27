@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.jakewharton.rxbinding4.appcompat.queryTextChanges
+import com.ksoft.ms.EventObserver
 import com.ksoft.ms.R
 import com.ksoft.ms.databinding.FragmentMovieBinding
 import com.ksoft.ms.ui.base.BaseFragment
@@ -11,6 +12,7 @@ import com.ksoft.ms.ui.base.BasePresenter
 import com.ksoft.ms.ui.extensions.hide
 import com.ksoft.ms.ui.extensions.show
 import com.ksoft.ms.ui.main.MainActivity
+import com.ksoft.ms.ui.web.WebActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -30,6 +32,13 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>(), Movi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addSearchViewTextChanges()
+        viewModel.navDirections.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                if (it is MovieEntity.Item) {
+                    startActivity(WebActivity.createIntent(requireContext(), it.link))
+                }
+            })
     }
 
     override fun emptyShow() {

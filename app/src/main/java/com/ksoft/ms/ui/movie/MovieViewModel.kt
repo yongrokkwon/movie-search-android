@@ -1,6 +1,7 @@
 package com.ksoft.ms.ui.movie
 
 import androidx.lifecycle.viewModelScope
+import com.ksoft.ms.Event
 import com.ksoft.ms.network.MovieStatus
 import com.ksoft.ms.ui.base.BasePresenter
 import com.ksoft.ms.ui.base.BaseViewModel
@@ -14,7 +15,9 @@ class MovieViewModel @Inject constructor(
     private val getMovies: GetMovies
 ) : BaseViewModel<MoviePresenter>() {
 
-    val movieAdapter = MovieAdapter()
+    val movieAdapter = MovieAdapter { item ->
+        navDirections.value = Event(item)
+    }
 
     fun searchMovies(query: String) {
         getMovies.invoke(query).map { movieEntity ->

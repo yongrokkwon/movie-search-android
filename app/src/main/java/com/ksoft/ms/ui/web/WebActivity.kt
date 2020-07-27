@@ -29,8 +29,6 @@ class WebActivity : Activity() {
         setContentView(R.layout.activity_web)
         webView.webViewClient = WebViewClient()
         webView.webChromeClient = WebChromeClient()
-        webView.settings.javaScriptEnabled = true
-        webView.loadUrl(url)
     }
 
 }

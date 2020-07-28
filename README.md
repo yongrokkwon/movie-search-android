@@ -11,3 +11,4 @@
 - Coroutine + Retrofit
 - Dagger2
 - Naver Movie Search API 
+- KTLint

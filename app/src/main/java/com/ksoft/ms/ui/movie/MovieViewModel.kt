@@ -3,12 +3,15 @@ package com.ksoft.ms.ui.movie
 import androidx.lifecycle.viewModelScope
 import com.ksoft.ms.Event
 import com.ksoft.ms.network.MovieStatus
-import com.ksoft.ms.ui.base.BasePresenter
 import com.ksoft.ms.ui.base.BaseViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
-import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class MovieViewModel @Inject constructor(

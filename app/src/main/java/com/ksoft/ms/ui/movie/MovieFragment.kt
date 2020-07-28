@@ -3,16 +3,16 @@ package com.ksoft.ms.ui.movie
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import com.jakewharton.rxbinding4.appcompat.queryTextChanges
+import com.jakewharton.rxbinding4.appcompat.queryTextChangeEvents
 import com.ksoft.ms.EventObserver
 import com.ksoft.ms.R
 import com.ksoft.ms.databinding.FragmentMovieBinding
 import com.ksoft.ms.ui.base.BaseFragment
-import com.ksoft.ms.ui.base.BasePresenter
 import com.ksoft.ms.ui.extensions.hide
 import com.ksoft.ms.ui.extensions.show
 import com.ksoft.ms.ui.main.MainActivity
 import com.ksoft.ms.ui.web.WebActivity
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -55,12 +55,18 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>(), Movi
         val activity = requireActivity() as MainActivity
         val toolbar = activity.binding.toolbar
         val searchView = toolbar.menu.findItem(R.id.menu_search).actionView as SearchView
-        searchView.queryTextChanges()
-            .throttleWithTimeout(3000L, TimeUnit.MILLISECONDS)
+        searchView.queryTextChangeEvents()
+            .debounce {
+                if (it.isSubmitted) {
+                    Observable.just(it)
+                } else {
+                    Observable.just(it).delay(1000L, TimeUnit.MILLISECONDS)
+                }
+            }
             .subscribe {
                 Timber.d("__SearchQuery: $it")
-                if (it.isNotBlank()) {
-                    viewModel.searchMovies(it.toString())
+                if (it.queryText.isNotBlank()) {
+                    viewModel.searchMovies(it.queryText.toString())
                 } else {
                     GlobalScope.launch(Dispatchers.Main) { emptyShow() }
                 }

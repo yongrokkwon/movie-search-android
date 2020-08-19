@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.ksoft.ms.ui.movie.MovieEntity.Item" />
+            type="com.ksoft.ms.ui.movie.Movie.MovieItem" />
 
     </data>
 

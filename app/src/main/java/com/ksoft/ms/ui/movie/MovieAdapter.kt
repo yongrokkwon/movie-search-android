@@ -4,12 +4,12 @@ import com.ksoft.ms.R
 import com.ksoft.ms.ui.base.BaseListAdapter
 
 class MovieAdapter(
-    clickListener: (item: MovieEntity.Item) -> Unit
-) : BaseListAdapter<MovieEntity.Item>() {
+    clickListener: (item: Movie.MovieItem) -> Unit
+) : BaseListAdapter<Movie.MovieItem>() {
 
     init {
         setItemClickListener { _, item -> clickListener.invoke(item) }
     }
 
-    override fun getItemViewTypeByItem(item: MovieEntity.Item): Int = R.layout.item_movie
+    override fun getItemViewTypeByItem(item: Movie.MovieItem): Int = R.layout.item_movie
 }

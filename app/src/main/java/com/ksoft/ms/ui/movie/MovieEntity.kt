@@ -7,7 +7,7 @@ data class MovieEntity(
     @SerializedName("display")
     val display: Int,
     @SerializedName("items")
-    val items: List<Item>,
+    val items: List<MovieItemEntity>,
     @SerializedName("lastBuildDate")
     val lastBuildDate: String,
     @SerializedName("start")
@@ -15,9 +15,9 @@ data class MovieEntity(
     @SerializedName("total")
     val total: Int,
     @SerializedName("errorMessage")
-    val errorMessage: String
+    val errorMessage: String?
 ) {
-    data class Item(
+    data class MovieItemEntity(
         @SerializedName("actor")
         val actor: String,
         @SerializedName("director")
@@ -35,4 +35,24 @@ data class MovieEntity(
         @SerializedName("userRating")
         val userRating: String
     ) : BaseItem(title)
+
+    fun mapFrom() = Movie(
+        display = display,
+        items = items.map {
+            Movie.MovieItem(
+                actor = it.actor,
+                director = it.director,
+                image = it.image,
+                link = it.link,
+                pubDate = it.pubDate,
+                subtitle = it.subtitle,
+                title = it.title,
+                userRating = it.userRating
+            )
+        },
+        lastBuildDate = lastBuildDate,
+        start = start,
+        total = total,
+        errorMessage = errorMessage
+    )
 }

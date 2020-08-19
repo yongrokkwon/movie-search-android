@@ -25,22 +25,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setAdapter="@{viewModel.movieAdapter}"
             app:spanCount="3"
             tools:itemCount="5"
             tools:listitem="@layout/item_movie" />
 
-        <TextView
-            android:id="@+id/tv_empty"
+        <ImageView
+            android:id="@+id/iv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/baseline_error_black_48"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/tv_empty"
+            app:layout_constraintEnd_toEndOf="@id/tv_empty"
+            app:layout_constraintStart_toStartOf="@id/tv_empty" />
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/movie_empty"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

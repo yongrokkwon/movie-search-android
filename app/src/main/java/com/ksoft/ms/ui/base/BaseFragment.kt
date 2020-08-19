@@ -20,9 +20,7 @@ import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
-abstract class BaseFragment<VM : BaseViewModel<out BasePresenter>, VB : ViewDataBinding> :
-    Fragment(),
-    BasePresenter {
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProvider.Factory
@@ -37,7 +35,6 @@ abstract class BaseFragment<VM : BaseViewModel<out BasePresenter>, VB : ViewData
 
     protected abstract val layoutRes: Int
     protected abstract val viewModelClass: KClass<VM>
-    protected abstract fun initPresenter()
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -55,30 +52,23 @@ abstract class BaseFragment<VM : BaseViewModel<out BasePresenter>, VB : ViewData
 
         binding.setVariable(BR.viewModel, viewModel)
 
-        initPresenter()
-
         return binding.root
     }
 
-    override fun hideLoading() {
+    fun hideLoading() {
         progress.close()
     }
 
-    override fun showLoading() {
+    fun showLoading() {
         progress.safeShow()
     }
 
-    override fun showToast(message: String?) {
+    fun showToast(message: String?) {
         Toast.makeText(
             requireContext(),
             message ?: getString(R.string.app_name),
             Toast.LENGTH_SHORT
         ).show()
-    }
-
-    override fun onDestroy() {
-        viewModel.clear()
-        super.onDestroy()
     }
 
 }

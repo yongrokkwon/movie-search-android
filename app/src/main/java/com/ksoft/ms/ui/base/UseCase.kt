@@ -8,7 +8,6 @@ abstract class UseCase<Response, in Params> {
 
     abstract fun execute(params: Params): Flow<Response>
 
-    operator fun invoke(params: Params): Flow<Response> =
-        execute(params).flowOn(Dispatchers.IO)
+    operator fun invoke(params: Params): Flow<Response> = execute(params).flowOn(Dispatchers.IO)
 
 }

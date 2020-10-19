@@ -13,7 +13,10 @@ import com.ksoft.ms.ui.extensions.hide
 import com.ksoft.ms.ui.extensions.show
 import com.ksoft.ms.ui.main.MainActivity
 import com.ksoft.ms.ui.web.WebActivity
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,12 +30,19 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
 
     private val movieAdapter by lazy { MovieAdapter() }
 
+    private val compositeDisposable = CompositeDisposable()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setEvent()
         setView()
         setObserve()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     private fun setView() {
@@ -92,14 +102,15 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
                     Observable.just(it).delay(1000L, TimeUnit.MILLISECONDS)
                 }
             }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Timber.d("__SearchQuery: $it")
                 if (it.queryText.isNotBlank()) {
                     viewModel.searchMovies(it.queryText.toString())
                 } else {
-                    GlobalScope.launch(Dispatchers.Main) { showEmptyView() }
+                    showEmptyView()
                 }
-            }
+            }.addTo(compositeDisposable)
     }
 
 }

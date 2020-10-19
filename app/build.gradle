@@ -46,27 +46,31 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.KOTLIN_VERSION"
     kapt "androidx.databinding:databinding-compiler:$rootProject.GRADLE_VERSION"
 
-    def CORE_KTX_VERSION = "1.3.1"
+    def CORE_KTX_VERSION = "1.3.3"
     implementation "androidx.core:core-ktx:$CORE_KTX_VERSION"
 
     def FRAGMENT_VERSION = "1.2.5"
-    implementation "androidx.fragment:fragment:$FRAGMENT_VERSION"
+    implementation "androidx.fragment:fragment-ktx:$FRAGMENT_VERSION"
 
-    def ANDROIDX_VIEW_VERSION = "1.1.0"
-    implementation "androidx.appcompat:appcompat:$ANDROIDX_VIEW_VERSION"
-    implementation "androidx.coordinatorlayout:coordinatorlayout:$ANDROIDX_VIEW_VERSION"
+    def APPCOMPAT_VERSION = "1.2.0"
+    implementation "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
 
-    def CONSTRAINT_LAYOUT_VERSION = "1.1.3"
+    def COORDINATOR_LAYOUT_VERSION = "1.1.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$COORDINATOR_LAYOUT_VERSION"
+
+    def CONSTRAINT_LAYOUT_VERSION = "2.0.2"
     implementation "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT_VERSION"
 
     def TIMBER_VERSION = "4.7.1"
     implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
 
-    def DAGGER_VERSION = '2.27'
+    def DAGGER_VERSION = '2.28'
     implementation "com.google.dagger:dagger:$DAGGER_VERSION"
     implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
-    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+
+    def KAPT_DAGGER_VERSION = '2.27'
+    kapt "com.google.dagger:dagger-compiler:$KAPT_DAGGER_VERSION"
+    kapt "com.google.dagger:dagger-android-processor:$KAPT_DAGGER_VERSION"
 
     def RETROFIT_VERSION = '2.7.2'
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
@@ -77,7 +81,7 @@ dependencies {
     def LOGGING_VERSION = '4.4.0'
     implementation "com.squareup.okhttp3:logging-interceptor:$LOGGING_VERSION"
 
-    def MATERIAL_VERSION = '1.3.0-alpha01'
+    def MATERIAL_VERSION = '1.3.0-alpha03'
     implementation "com.google.android.material:material:$MATERIAL_VERSION"
 
     def CARD_VIEW_VERSION = '1.0.0'
@@ -86,22 +90,25 @@ dependencies {
     def GSON_VERSION = '2.8.6'
     implementation "com.google.code.gson:gson:$GSON_VERSION"
 
-    def GLIDE_VERSION = '4.0.0'
+    def GLIDE_VERSION = '4.11.0'
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
 
-    def COROUTINE_VERSION = '1.3.7'
+    def COROUTINE_VERSION = '1.3.9'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINE_VERSION"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
 
     def RX_BINDING_VERSION = '4.0.0'
     implementation "com.jakewharton.rxbinding4:rxbinding-appcompat:$RX_BINDING_VERSION"
 
+    def RX_KOTLIN_VERSION = '3.0.1'
+    implementation "io.reactivex.rxjava3:rxkotlin:$RX_KOTLIN_VERSION"
+
     def LIFECYCLE_VIEW_MODEL_KTX_VERSION = '2.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VIEW_MODEL_KTX_VERSION"
 
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 private static def getCurrentDate() {

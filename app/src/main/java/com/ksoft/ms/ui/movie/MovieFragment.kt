@@ -25,17 +25,21 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
     override val layoutRes = R.layout.fragment_movie
     override val viewModelClass = MovieViewModel::class
 
-    private val movieAdapter by lazy {
-        MovieAdapter { startActivity(WebActivity.createIntent(requireContext(), it.link)) }
-    }
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addSearchViewTextChanges()
+        setEvent()
+        setView()
+        setObserve()
+    }
 
+    private fun setView() {
         binding.rvMovie.adapter = movieAdapter
+    }
 
+    private fun setObserve() {
         viewModel.movieList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> showLoading()
@@ -43,7 +47,7 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
                 Status.SUCCESS -> {
                     hideLoading()
                     if (it.data != null && it.data.items.isNotEmpty()) {
-                        movieAdapter.submitList(it.data.items)
+                        movieAdapter.updateMovieItem(it.data.items)
                         hideEmptyView()
                     } else {
                         showEmptyView()
@@ -51,6 +55,10 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
                 }
             }
         })
+
+        movieAdapter.movieFlowable.subscribe { item ->
+            startActivity(WebActivity.createIntent(requireContext(), item.link))
+        }
     }
 
     private fun showErrorView(error: Error?) {
@@ -72,7 +80,7 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
         binding.rvMovie.show()
     }
 
-    private fun addSearchViewTextChanges() {
+    private fun setEvent() {
         val activity = requireActivity() as MainActivity
         val toolbar = activity.binding.toolbar
         val searchView = toolbar.menu.findItem(R.id.menu_search).actionView as SearchView

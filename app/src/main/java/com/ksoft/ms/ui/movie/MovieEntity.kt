@@ -1,7 +1,6 @@
 package com.ksoft.ms.ui.movie
 
 import com.google.gson.annotations.SerializedName
-import com.ksoft.ms.ui.base.BaseItem
 
 data class MovieEntity(
     @SerializedName("display")
@@ -34,7 +33,7 @@ data class MovieEntity(
         val title: String,
         @SerializedName("userRating")
         val userRating: String
-    ) : BaseItem(title)
+    )
 
     fun mapFrom() = Movie(
         display = display,

@@ -3,7 +3,6 @@ package com.ksoft.ms.ui.movie
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding4.appcompat.queryTextChangeEvents
 import com.ksoft.ms.R
 import com.ksoft.ms.databinding.FragmentMovieBinding
@@ -17,9 +16,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -50,7 +46,7 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
     }
 
     private fun setObserve() {
-        viewModel.movieList.observe(viewLifecycleOwner, Observer {
+        viewModel.movieList.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> showErrorView(it.error)
@@ -94,15 +90,14 @@ class MovieFragment : BaseFragment<MovieViewModel, FragmentMovieBinding>() {
         val activity = requireActivity() as MainActivity
         val toolbar = activity.binding.toolbar
         val searchView = toolbar.menu.findItem(R.id.menu_search).actionView as SearchView
-        searchView.queryTextChangeEvents()
-            .debounce {
-                if (it.isSubmitted) {
-                    Observable.just(it)
-                } else {
-                    Observable.just(it).delay(1000L, TimeUnit.MILLISECONDS)
-                }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+
+        val tappedSearchButton = searchView.queryTextChangeEvents().filter { it.isSubmitted }
+        val autoSearch = searchView.queryTextChangeEvents().filter { !it.isSubmitted }
+
+        Observable.merge(
+            tappedSearchButton,
+            autoSearch.debounce(500L, TimeUnit.MILLISECONDS)
+        ).observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Timber.d("__SearchQuery: $it")
                 if (it.queryText.isNotBlank()) {
